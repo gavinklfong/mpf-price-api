@@ -1,0 +1,219 @@
+# It is the serverless configuration for Lambda of MPF Price API
+#
+
+service: mpf-price-api
+
+# Resource
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+
+  # Outputs:
+  #   saveMPFPriceDynamodbArn:
+  #     Export:
+  #       Name: saveMPFPriceDynamodbArn
+  #     Value:
+  #        Fn::GetAtt: SaveMPFPriceDynamodbLambdaFunction.Arn
+
+# Provider
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-2
+
+  logs:
+    restApi: true  
+
+  tracing:
+    lambda: true
+    apiGateway: true
+
+  timeout: 300
+
+  apiKeys:
+    - dev-api-key
+    # - name: apiKeyMPFKey
+    #   value: MPFKey123456789
+    #   description: Sample API key
+  
+  usagePlan:
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 200
+      rateLimit: 100
+
+# the Lambda function's IAM Role
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+          - "sqs:DeleteMessage"
+          - "dynamodb:BatchGetItem"
+          - "dynamodb:ConditionCheckItem"
+          - "dynamodb:PutItem"
+          - "dynamodb:DeleteItem"
+          - "dynamodb:GetShardIterator"
+          - "dynamodb:GetItem"
+          - "dynamodb:Scan"
+          - "dynamodb:Query"
+          - "dynamodb:UpdateItem"
+          - "dynamodb:GetRecords"
+      Resource: 
+        Fn::Join:
+          - ":"
+          - - arn:aws:dynamodb
+            - Ref: AWS::Region
+            - Ref: AWS::AccountId
+            - table/MPF*
+    - Effect: "Allow"
+      Action:
+          - "dynamodb:DescribeStream"
+          - "dynamodb:GetRecords"
+          - "dynamodb:GetShardIterator"
+          - "dynamodb:ListStreams"
+      Resource: 
+        Fn::Join:
+          - ":"
+          - - arn:aws:dynamodb
+            - Ref: AWS::Region
+            - Ref: AWS::AccountId
+            - table/MPFPriceDaily/stream/2019-04-20T14:06:11.854
+
+# Package
+
+package:
+  individually: true
+  exclude:
+    - "**/*"  # quotes(") are needed
+    - '!node_modules/aws-sdk/**'
+    - '!coverage/**'
+
+# Lambda definition
+
+functions:
+  getMPFTrusteeListAPI:
+    handler: get-mpf-price-api/index.trusteeList
+    description: Get MPF Trustee List API
+    memorySize: 128
+    package:
+      include:
+        - get-mpf-price-api/**
+      exclude:
+        - get-mpf-price-api/node_modules/aws-sdk/**
+        - get-mpf-price-api/coverage/**
+    events:
+      - http:
+          path: mpf
+          method: get
+          cors: true
+          private: true
+          request:
+            parameters:
+              paths:
+                trustee: true
+          authorizer: 
+            name: apiAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+
+
+  getMPFTrusteeAPI:
+    handler: get-mpf-price-api/index.trustee
+    description: Get MPF Trustee API
+    memorySize: 128
+    package:
+      include:
+        - get-mpf-price-api/**
+      exclude:
+        - get-mpf-price-api/node_modules/aws-sdk/**
+        - get-mpf-price-api/coverage/**
+    events:
+      - http:
+          path: mpf/{trustee}
+          method: get
+          cors: true
+          private: true
+          request:
+            parameters:
+              paths:
+                trustee: true
+          authorizer: 
+            name: apiAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+
+  getMPFSchemeAPI:
+    handler: get-mpf-price-api/index.scheme
+    description: Get MPF Scheme API
+    memorySize: 128
+    package:
+      include:
+        - get-mpf-price-api/**
+      exclude:
+        - get-mpf-price-api/node_modules/aws-sdk/**
+        - get-mpf-price-api/coverage/**
+    events:
+      - http:
+          path: mpf/{trustee}/schemes/{scheme}
+          method: get
+          cors: true
+          private: true
+          request:
+            parameters:
+              paths:
+                trustee: true
+                scheme: true  
+          authorizer: 
+            name: apiAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token   
+
+  getMPFPriceAPI:
+    handler: get-mpf-price-api/index.fundPrice
+    description: Get MPF Price API
+    memorySize: 128
+    package:
+      include:
+        - get-mpf-price-api/**
+      exclude:
+        - get-mpf-price-api/node_modules/aws-sdk/**
+        - get-mpf-price-api/coverage/**
+    events:
+      - http:
+          path: mpf/price
+          method: post
+          cors: true
+          private: true  
+          authorizer: 
+            name: apiAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token   
+
+  apiAuthorizer:
+    handler: api-authorizer/index.handler
+    description: API Authorizer
+    package:
+      include:
+        - api-authorizer/**
+      exclude:
+        - api-authorizer/node_modules/aws-sdk/**
+        - api-authorizer/coverage/**
+    environment:
+      FIREBASE_DATABASE_URL: https://mpf-price-app.firebaseio.com
