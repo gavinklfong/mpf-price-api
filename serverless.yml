@@ -206,6 +206,28 @@ functions:
             identitySource: method.request.header.Authorization
             type: token   
 
+  getMPFFundPerformanceAPI:
+    handler: get-mpf-price-api/index.fundPerformance
+    description: Get MPF Fund Performance API
+    memorySize: 128
+    package:
+      include:
+        - get-mpf-price-api/**
+      exclude:
+        - get-mpf-price-api/node_modules/aws-sdk/**
+        - get-mpf-price-api/coverage/**
+    events:
+      - http:
+          path: mpf/performance
+          method: post
+          cors: true
+          private: true  
+          authorizer: 
+            name: apiAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token  
+            
   apiAuthorizer:
     handler: api-authorizer/index.handler
     description: API Authorizer

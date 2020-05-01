@@ -78,6 +78,101 @@ const formatFundPrices = (items) => {
   return output;
 };
 
+const retrieveFundPerformances = (funds) => {
+
+  let funds$ = from(funds);
+  let stream$ = funds$.pipe(
+      // tap(fund => console.log(fund)),
+      map(fund => { 
+          return {trustee: fund.trustee, scheme: fund.scheme, fund: fund.fund}
+      }),
+      // tap(fund => console.log(fund)),
+      map(query => { return from(retrieveFundPerformance(query.trustee, query.scheme, query.fund))}),
+      // tap(fund => console.log(fund)),
+      flatMap(item => item)
+      // tap(item => console.log(item)),
+      // map(item => formatFundPrices(item))
+  );
+
+  return stream$;
+
+};
+
+const retrieveAllFundPerformances = async () => {
+
+  const params = {
+    TableName: "MPFFundPerformance",
+    ProjectionExpression: "trusteeSchemeFundId, trustee, scheme, fund, month1Growth, month3Growth, month6Growth, month12Growth"
+  };
+
+  try {
+    let queryData = await docClient.scan(params).promise();
+
+    const transformedData = queryData.Items.map(item => {
+      
+      return {
+        trusteeSchemeFundId: item.trusteeSchemeFundId,
+        trustee: item.trustee,
+        scheme: item.scheme,
+        fund: item.fund,
+        growth1Month: item.month1Growth,
+        growth3Month: item.month3Growth,
+        growth6Month: item.month6Growth,
+        growth12Month: item.month12Growth
+      };
+    });
+
+    return transformedData;
+    
+
+  } catch (e) {
+      console.error("Unable to query. Error:", JSON.stringify(e));
+      console.error(e);
+      throw e;
+  }
+
+}
+
+const retrieveFundPerformance = async (trustee, scheme, fund) => {
+  let trusteeSchemeFundId = trustee + "-" + scheme + "-" + fund;
+  trusteeSchemeFundId = decodeURIComponent(trusteeSchemeFundId);
+
+  const params = {
+    TableName: "MPFFundPerformance",
+    KeyConditionExpression: "trusteeSchemeFundId = :id",
+    ExpressionAttributeValues: {
+        ":id": trusteeSchemeFundId,
+    },
+    ProjectionExpression: "trusteeSchemeFundId, trustee, scheme, fund, month1Growth, month3Growth, month6Growth, month12Growth"
+  };
+
+  try {
+    let queryData = await docClient.query(params).promise();
+
+    const transformedData = queryData.Items.map(item => {
+      
+      return {
+        trusteeSchemeFundId: item.trusteeSchemeFundId,
+        trustee: item.trustee,
+        scheme: item.scheme,
+        fund: item.fund,
+        growth1Month: item.month1Growth,
+        growth3Month: item.month3Growth,
+        growth6Month: item.month6Growth,
+        growth12Month: item.month12Growth
+      };
+    });
+
+    return transformedData;
+    
+
+  } catch (e) {
+      console.error("Unable to query. Error:", JSON.stringify(e));
+      console.error(e);
+      throw e;
+  }
+
+}
 
 const retrieveFundPrice = async (trustee, scheme, fund, startDate, endDate, timePeriod = "D") => {
 
@@ -260,5 +355,7 @@ const getTrusteeList = async () => {
 module.exports = {
   retrieveFundPrices,
   getMPFCatalog,
-  getTrusteeList
+  getTrusteeList,
+  retrieveFundPerformances,
+  retrieveAllFundPerformances
 }

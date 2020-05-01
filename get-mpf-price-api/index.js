@@ -160,6 +160,49 @@ module.exports.fundPrice = async event => {
   }
 }
 
+module.exports.fundPerformance = async event => {
+
+  console.log(JSON.stringify(event));
+
+  // if (!event.body ||  event.body === "undefined" ) {
+  //   return {
+  //     statusCode: 404,
+  //     message: "Invalid parameter"
+  //   }
+  // }
+
+    let body = null;
+    if (event.body) {
+      body = JSON.parse(event.body);
+    }
+
+    let result = null;
+    if (body && body.funds && body.funds.length > 0) {
+      let result$ = mpfDataAccess.retrieveFundPerformances(body.funds);
+      
+      // Convert observable to be promise. capture all the data and return
+      let resultPromise = new Promise((resolve, reject) => {
+      let output = [];
+      result$.subscribe({
+        next(x) { output = output.concat(x) },
+        error(err) { console.error('something wrong occurred: ' + err); reject(err); },
+        complete() { resolve(output); }
+      })
+      });
+
+    // toPromise() does not work, it resolves once first data is received without waiting for observable to complete
+    // let resultPromise = result$.toPromise();
+
+       result = prepareResponse(200, await resultPromise);
+    } else {
+      let dbResult = await mpfDataAccess.retrieveAllFundPerformances();
+      result = prepareResponse(200, dbResult);
+    }
+
+    return result;
+
+}
+
 const ALLOWED_ORGIN = [
   'https://mpf-price-app.web.app',
   'http://localhost'
