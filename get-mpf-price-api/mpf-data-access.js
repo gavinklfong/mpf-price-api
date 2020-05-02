@@ -277,6 +277,39 @@ const retrieveFundPrice = async (trustee, scheme, fund, startDate, endDate, time
 };
 
 
+const getMPFCategoryList = async () => {
+  const params = {
+    TableName: MPF_CATALOG_TABLE,
+    ProjectionExpression: "category"
+  };
+
+  let queryItemList = [];
+  const categorySet = new Set();
+
+  try {
+      let queryData = await docClient.scan(params).promise();
+      queryData.Items.forEach(dbItem => {
+          if (dbItem != null && dbItem.category != null && dbItem.category !== "") {
+            let itemArray = dbItem.category.split(",");
+            itemArray.forEach(item => {
+              categorySet.add(item.trim());
+            });
+          }
+      });
+
+      queryItemList = Array.from(categorySet);
+
+      // console.log(queryItemList);
+  } catch (e) {
+      console.error("Unable to query. Error:", JSON.stringify(e));
+      console.error(e);
+  }
+
+  return queryItemList;
+
+}
+
+
 const getMPFCatalog = async (trustee, scheme) => {
    
   console.log("parameters: trustee=" + trustee + ", scheme=" + scheme);
@@ -352,9 +385,33 @@ const getTrusteeList = async () => {
 
 }
 
+const getCatalogList = async () => {
+
+  let params = {
+    TableName: MPF_CATALOG_TABLE,
+    ProjectionExpression: "trustee, scheme, fund, category"
+  };
+
+  let queryItemList = [];
+
+  try {
+      let queryData = await docClient.scan(params).promise();
+      queryItemList = queryData.Items;
+
+  } catch (e) {
+      console.error("Unable to query. Error:", JSON.stringify(e));
+      console.error(e);
+  }
+
+  return queryItemList;
+
+}
+
 module.exports = {
   retrieveFundPrices,
   getMPFCatalog,
+  getCatalogList,
+  getMPFCategoryList,
   getTrusteeList,
   retrieveFundPerformances,
   retrieveAllFundPerformances

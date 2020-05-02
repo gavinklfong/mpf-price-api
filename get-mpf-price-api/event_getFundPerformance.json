@@ -1,47 +1,55 @@
 {
-    "resource": "/mpf/{trustee}/schemes/{scheme}/funds/price",
-    "path": "/mpf/HSBC/schemes/SuperTrust%20Plus/funds/price",
+    "resource": "/mpf/performance",
+    "path": "/mpf/performance",
     "httpMethod": "POST",
     "headers": {
-        "Accept": "*/*",
+        "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate, br",
-        "Cache-Control": "no-cache",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "Authorization": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbXBmLXByaWNlLWFwcCIsImF1ZCI6Im1wZi1wcmljZS1hcHAiLCJhdXRoX3RpbWUiOjE1ODgzODY3NDgsInVzZXJfaWQiOiJFckgxVVVFMlpQUElFczAxUWNYdTR3V2JmWksyIiwic3ViIjoiRXJIMVVVRTJaUFBJRXMwMVFjWHU0d1diZlpLMiIsImlhdCI6MTU4ODM5MzM0OSwiZXhwIjoxNTg4Mzk2OTQ5LCJlbWFpbCI6ImdhdmluX2ZvbmdAeWFob28uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImdhdmluX2ZvbmdAeWFob28uY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.bZLA4bttoNg5hu2Gyh7tuTgmZxVgEaOaAfGXc3JEtuhRGHSfs76qJvfZvMncXDV2CvQNpRXX4CZx0OCVpO7DnJbb5cM_naZNiSTG2LJMzVJHFM6hbhStjG9foTrMwzF68zRpi4Gm0gd4HmoZLO0jzGc3eBHrfRMn8g1TeBRvRaPdpfLff44eMOVMKyMlCUVzPpgHpUoJCur4v9IYwCVlDZ1mBXKtwQRQfhtIBqfk6Mb8tHai-8uLMziJQUvdNs3WBkZY-V8LMeNZ07o7ct3f7tkE6L2mEva3bVYjLf5nKZggMlOEsaISibww5PqPQo4pkVKISim5P8JjXhQdcRjhDA",
         "CloudFront-Forwarded-Proto": "https",
-        "CloudFront-Is-Desktop-Viewer": "true",
-        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-Desktop-Viewer": "false",
+        "CloudFront-Is-Mobile-Viewer": "true",
         "CloudFront-Is-SmartTV-Viewer": "false",
         "CloudFront-Is-Tablet-Viewer": "false",
         "CloudFront-Viewer-Country": "HK",
-        "Content-Type": "text/plain",
-        "Host": "aifobzeuf2.execute-api.us-east-2.amazonaws.com",
-        "Postman-Token": "6f9bc4e2-c561-4150-abfa-7ff286fde569",
-        "User-Agent": "PostmanRuntime/7.22.0",
-        "Via": "1.1 7aa4887d07675cb624d6fe390d93be85.cloudfront.net (CloudFront)",
-        "X-Amz-Cf-Id": "BN9S1Vf1DIxxyLkBe9-qvqlIkGQHHiSPLKDRk33WeywnFA7wrr42fQ==",
-        "X-Amzn-Trace-Id": "Root=1-5e5144f6-26b7e2604dc501d89c4bb908",
-        "x-api-key": "Whalebig27Whalebig27",
-        "X-Forwarded-For": "113.254.66.64, 130.176.25.132",
+        "content-type": "application/x-www-form-urlencoded",
+        "Host": "ymfsropn9g.execute-api.us-east-2.amazonaws.com",
+        "origin": "http://localhost:8100",
+        "Referer": "http://localhost:8100/page/Summary",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36",
+        "Via": "2.0 fa763bd4d7fde260f358b4b4d919622d.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "XWs2TcmRzd3J0pR5CqoeUGCiWiMX3XcF5O8TZT46sTEot72PliVQbQ==",
+        "X-Amzn-Trace-Id": "Root=1-5eacfa09-4a0a8ba2d02259fb60c234ab",
+        "x-api-key": "EKJRmsQhdN7PUvIY6RYJg1nhesEq95Rx41igtoFT",
+        "X-Forwarded-For": "113.254.66.64, 64.252.139.137",
         "X-Forwarded-Port": "443",
         "X-Forwarded-Proto": "https"
     },
     "multiValueHeaders": {
         "Accept": [
-            "*/*"
+            "application/json, text/plain, */*"
         ],
         "Accept-Encoding": [
             "gzip, deflate, br"
         ],
-        "Cache-Control": [
-            "no-cache"
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8"
+        ],
+        "Authorization": [
+            "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbXBmLXByaWNlLWFwcCIsImF1ZCI6Im1wZi1wcmljZS1hcHAiLCJhdXRoX3RpbWUiOjE1ODgzODY3NDgsInVzZXJfaWQiOiJFckgxVVVFMlpQUElFczAxUWNYdTR3V2JmWksyIiwic3ViIjoiRXJIMVVVRTJaUFBJRXMwMVFjWHU0d1diZlpLMiIsImlhdCI6MTU4ODM5MzM0OSwiZXhwIjoxNTg4Mzk2OTQ5LCJlbWFpbCI6ImdhdmluX2ZvbmdAeWFob28uY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImdhdmluX2ZvbmdAeWFob28uY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.bZLA4bttoNg5hu2Gyh7tuTgmZxVgEaOaAfGXc3JEtuhRGHSfs76qJvfZvMncXDV2CvQNpRXX4CZx0OCVpO7DnJbb5cM_naZNiSTG2LJMzVJHFM6hbhStjG9foTrMwzF68zRpi4Gm0gd4HmoZLO0jzGc3eBHrfRMn8g1TeBRvRaPdpfLff44eMOVMKyMlCUVzPpgHpUoJCur4v9IYwCVlDZ1mBXKtwQRQfhtIBqfk6Mb8tHai-8uLMziJQUvdNs3WBkZY-V8LMeNZ07o7ct3f7tkE6L2mEva3bVYjLf5nKZggMlOEsaISibww5PqPQo4pkVKISim5P8JjXhQdcRjhDA"
         ],
         "CloudFront-Forwarded-Proto": [
             "https"
         ],
         "CloudFront-Is-Desktop-Viewer": [
-            "true"
+            "false"
         ],
         "CloudFront-Is-Mobile-Viewer": [
-            "false"
+            "true"
         ],
         "CloudFront-Is-SmartTV-Viewer": [
             "false"
@@ -52,32 +60,44 @@
         "CloudFront-Viewer-Country": [
             "HK"
         ],
-        "Content-Type": [
-            "text/plain"
+        "content-type": [
+            "application/x-www-form-urlencoded"
         ],
         "Host": [
-            "aifobzeuf2.execute-api.us-east-2.amazonaws.com"
+            "ymfsropn9g.execute-api.us-east-2.amazonaws.com"
         ],
-        "Postman-Token": [
-            "6f9bc4e2-c561-4150-abfa-7ff286fde569"
+        "origin": [
+            "http://localhost:8100"
+        ],
+        "Referer": [
+            "http://localhost:8100/page/Summary"
+        ],
+        "sec-fetch-dest": [
+            "empty"
+        ],
+        "sec-fetch-mode": [
+            "cors"
+        ],
+        "sec-fetch-site": [
+            "cross-site"
         ],
         "User-Agent": [
-            "PostmanRuntime/7.22.0"
+            "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
         ],
         "Via": [
-            "1.1 7aa4887d07675cb624d6fe390d93be85.cloudfront.net (CloudFront)"
+            "2.0 fa763bd4d7fde260f358b4b4d919622d.cloudfront.net (CloudFront)"
         ],
         "X-Amz-Cf-Id": [
-            "BN9S1Vf1DIxxyLkBe9-qvqlIkGQHHiSPLKDRk33WeywnFA7wrr42fQ=="
+            "XWs2TcmRzd3J0pR5CqoeUGCiWiMX3XcF5O8TZT46sTEot72PliVQbQ=="
         ],
         "X-Amzn-Trace-Id": [
-            "Root=1-5e5144f6-26b7e2604dc501d89c4bb908"
+            "Root=1-5eacfa09-4a0a8ba2d02259fb60c234ab"
         ],
         "x-api-key": [
-            "Whalebig27Whalebig27"
+            "EKJRmsQhdN7PUvIY6RYJg1nhesEq95Rx41igtoFT"
         ],
         "X-Forwarded-For": [
-            "113.254.66.64, 130.176.25.132"
+            "113.254.66.64, 64.252.139.137"
         ],
         "X-Forwarded-Port": [
             "443"
@@ -88,33 +108,36 @@
     },
     "queryStringParameters": null,
     "multiValueQueryStringParameters": null,
-    "pathParameters": {
-        "scheme": "SuperTrust%20Plus",
-        "trustee": "HSBC"
-    },
+    "pathParameters": null,
     "stageVariables": null,
     "requestContext": {
-        "resourceId": "m9aeyx",
-        "resourcePath": "/mpf/{trustee}/schemes/{scheme}/funds/price",
+        "resourceId": "hbvuwg",
+        "authorizer": {
+            "email_verified": "false",
+            "principalId": "ErH1UUE2ZPPIEs01QcXu4wWbfZK2",
+            "integrationLatency": 14,
+            "email": "gavin_fong@yahoo.com"
+        },
+        "resourcePath": "/mpf/performance",
         "httpMethod": "POST",
-        "extendedRequestId": "ITe2eFP-iYcF0gQ=",
-        "requestTime": "22/Feb/2020:15:12:54 +0000",
-        "path": "/dev/mpf/HSBC/schemes/SuperTrust%20Plus/funds/price",
+        "extendedRequestId": "L4wBkHLJiYcFkrg=",
+        "requestTime": "02/May/2020:04:41:45 +0000",
+        "path": "/dev/mpf/performance",
         "accountId": "041740121314",
         "protocol": "HTTP/1.1",
         "stage": "dev",
-        "domainPrefix": "aifobzeuf2",
-        "requestTimeEpoch": 1582384374170,
-        "requestId": "a0518c71-5764-46f4-a7da-4a64d793b588",
+        "domainPrefix": "ymfsropn9g",
+        "requestTimeEpoch": 1588394505944,
+        "requestId": "5f26dfdb-d659-4af6-8309-0d633f837777",
         "identity": {
             "cognitoIdentityPoolId": null,
             "cognitoIdentityId": null,
-            "apiKey": "Whalebig27Whalebig27",
+            "apiKey": "EKJRmsQhdN7PUvIY6RYJg1nhesEq95Rx41igtoFT",
             "principalOrgId": null,
             "cognitoAuthenticationType": null,
             "userArn": null,
-            "apiKeyId": "ct0a9hb7c0",
-            "userAgent": "PostmanRuntime/7.22.0",
+            "apiKeyId": "xb26y0x62c",
+            "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36",
             "accountId": null,
             "caller": null,
             "sourceIp": "113.254.66.64",
@@ -122,10 +145,9 @@
             "cognitoAuthenticationProvider": null,
             "user": null
         },
-        "domainName": "aifobzeuf2.execute-api.us-east-2.amazonaws.com",
-        "apiId": "aifobzeuf2"
+        "domainName": "ymfsropn9g.execute-api.us-east-2.amazonaws.com",
+        "apiId": "ymfsropn9g"
     },
-    "body": "{\"funds\":[{\"trustee\":\"HSBC\",\"scheme\":\"SuperTrust Plus\",\"fund\":\"Age 65 Plus Fund\"}, {\"trustee\":\"HSBC\",\"scheme\":\"SuperTrust Plus\",\"fund\":\"Hang Seng Index Tracking Fund\"}]}",
+    "body": "[{\"trustee\":\"BCT\",\"scheme\":\"BCT (MPF) Industry Choice\",\"fund\":\"BCT (Industry) Age 65 Plus Fund\"},{\"trustee\":\"HSBC\",\"scheme\":\"SuperTrust Plus\",\"fund\":\"Age 65 Plus Fund\"}]",
     "isBase64Encoded": false
 }
-

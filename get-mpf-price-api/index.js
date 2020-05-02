@@ -31,6 +31,47 @@ module.exports.trusteeList = async event => {
 
 };
 
+module.exports.categoryList = async event => {
+
+  console.log("categoryList - " + JSON.stringify(event));
+
+  let queryData = null;
+
+  try {
+    queryData = await mpfDataAccess.getMPFCategoryList();
+    // console.log(queryData);  
+  } catch (e) {
+      console.error("Unable to retrieve trustee information. Error:", JSON.stringify(e));
+
+      return {
+        statusCode: 500,
+        body: JSON.stringify(e)
+      };
+  }
+
+  return prepareResponse(200, queryData);
+
+};
+
+module.exports.catalog = async event => {
+
+  let queryData = null;
+
+  try {
+     queryData = await mpfDataAccess.getCatalogList();
+
+  } catch (e) {
+      console.error("Unable to retrieve trustee information. Error:", JSON.stringify(e));
+
+      return {
+        statusCode: 500,
+        body: JSON.stringify(e)
+      };
+  }
+
+  return prepareResponse(200, queryData);
+
+};
 
 module.exports.trustee = async event => {
 
@@ -171,14 +212,14 @@ module.exports.fundPerformance = async event => {
   //   }
   // }
 
-    let body = null;
+    let funds = null;
     if (event.body) {
-      body = JSON.parse(event.body);
+      funds = JSON.parse(event.body);
     }
 
     let result = null;
-    if (body && body.funds && body.funds.length > 0) {
-      let result$ = mpfDataAccess.retrieveFundPerformances(body.funds);
+    if (funds && funds.length > 0) {
+      let result$ = mpfDataAccess.retrieveFundPerformances(funds);
       
       // Convert observable to be promise. capture all the data and return
       let resultPromise = new Promise((resolve, reject) => {
