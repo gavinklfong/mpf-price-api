@@ -17,13 +17,6 @@ resources:
         RestApiId:
           Ref: 'ApiGatewayRestApi'
 
-  # Outputs:
-  #   saveMPFPriceDynamodbArn:
-  #     Export:
-  #       Name: saveMPFPriceDynamodbArn
-  #     Value:
-  #        Fn::GetAtt: SaveMPFPriceDynamodbLambdaFunction.Arn
-
 # Provider
 
 provider:
@@ -43,9 +36,6 @@ provider:
 
   apiKeys:
     - dev-api-key
-    # - name: apiKeyMPFKey
-    #   value: MPFKey123456789
-    #   description: Sample API key
   
   usagePlan:
     quota:
