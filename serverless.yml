@@ -26,11 +26,11 @@ provider:
   region: us-east-2
 
   logs:
-    restApi: true  
+    restApi: false  
 
   tracing:
-    lambda: true
-    apiGateway: true
+    lambda: false
+    apiGateway: false
 
   timeout: 300
 
